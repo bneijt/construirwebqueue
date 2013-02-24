@@ -3,9 +3,7 @@
 import imp, os
 
 # a setting to determine whether we are running on OpenShift
-ON_OPENSHIFT = False
-if os.environ.has_key('OPENSHIFT_REPO_DIR'):
-    ON_OPENSHIFT = True
+ON_OPENSHIFT = os.environ.has_key('OPENSHIFT_REPO_DIR')
 
 PROJECT_DIR = os.path.dirname(os.path.realpath(__file__))
 
@@ -13,7 +11,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('Bram Neijt', 'bneijt@gmail.com'),
 )
 MANAGERS = ADMINS
 
@@ -49,7 +47,7 @@ else:
 # timezone as the operating system.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'Europe/Amsterdam'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
