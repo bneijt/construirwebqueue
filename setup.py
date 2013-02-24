@@ -3,11 +3,11 @@
 from setuptools import setup
 
 setup(
-    name='YourAppName',
+    name='ConstruirWebQueue',
     version='1.0',
-    description='OpenShift App',
-    author='Your Name',
-    author_email='example@example.com',
-    url='http://www.python.org/sigs/distutils-sig/',
+    description='Construir web queue',
+    author='Bram Neijt',
+    author_email='bneijt@gmail.com',
+    url='http://bneijt.nl/pr/construir',
     install_requires=['Django>=1.3'],
 )
