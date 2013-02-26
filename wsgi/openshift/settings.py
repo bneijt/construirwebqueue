@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Django settings for openshift project.
-import imp, os
+import imp, os, logging
+logger = logging.getLogger(__name__)
 
 # a setting to determine whether we are running on OpenShift
 ON_OPENSHIFT = os.environ.has_key('OPENSHIFT_REPO_DIR')
@@ -65,7 +66,24 @@ USE_L10N = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = os.environ.get('OPENSHIFT_DATA_DIR', '')
+MEDIA_ROOT = os.environ.get('OPENSHIFT_DATA_DIR', '.')
+QUEUE_DIRECTORY = os.path.join(MEDIA_ROOT, "queue")
+if not os.path.exists(QUEUE_DIRECTORY):
+    try:
+        os.mkdir(QUEUE_DIRECTORY)
+    except Exception,e :
+        logger.error("Could not create queue directory", e)
+QUEUE_SIZE = 30
+
+DONE_DIRECTORY = os.path.join(MEDIA_ROOT, "done")
+if not os.path.exists(DONE_DIRECTORY):
+    try:
+        os.mkdir(DONE_DIRECTORY)
+    except Exception,e :
+        logger.error("Could not create done directory", e)
+
+DONE_SIZE = 30
+MAX_UPLOAD_SIZE = 10485760
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -153,8 +171,8 @@ INSTALLED_APPS = (
 )
 
 # A sample logging configuration. The only tangible logging
-# performed by this configuration is to send an email to
 # the site admins on every HTTP 500 error.
+# performed by this configuration is to send an email to
 # See http://docs.djangoproject.com/en/dev/topics/logging for
 # more details on how to customize your logging configuration.
 LOGGING = {
